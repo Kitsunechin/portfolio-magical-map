@@ -188,7 +188,7 @@ export default function HomePage() {
                 transition={{ delay: 0.5 }}
               >
                 A silver fox wanders through magical woods, seeking glowing memories of design adventures.
-                Each orb holds a tale of enhancing experiences for users.
+                Each project holds a tale of enhancing experiences for users.
               </motion.p>
 
               <motion.button
