@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Custom animation durations for orbital timeline */
+  .duration-1000 {
+    transition-duration: 1000ms;
+  }
+
+  /* Radial gradient for orbital center shader effect */
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+
+  /* Soft watercolor bloom, replacing hard neon glow */
+  .bloom-soft {
+    box-shadow: 0 0 40px -8px hsl(var(--primary) / 0.25);
+  }
+
+  .text-bloom-soft {
+    text-shadow: 0 0 28px hsl(var(--primary) / 0.3);
+  }
+}
+
+/* Faint hand-painted paper grain, used on the case-study, work and about surfaces.
+   The pseudo-element is fixed (not absolute) so it never needs the host element
+   to claim `position`, which would otherwise silently fight utilities like `fixed`. */
+.game-theme::before,
+.paper-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+@layer base {
+  :root {
+    --background: 230 32% 8%;
+    --foreground: 205 40% 92%;
+    --card: 230 28% 14%;
+    --card-foreground: 205 40% 92%;
+    --popover: 230 28% 14%;
+    --popover-foreground: 205 40% 92%;
+    --primary: 205 65% 68%;
+    --primary-foreground: 230 32% 8%;
+    --secondary: 225 20% 18%;
+    --secondary-foreground: 205 30% 80%;
+    --muted: 225 20% 18%;
+    --muted-foreground: 205 20% 60%;
+    --accent: 205 65% 68%;
+    --accent-foreground: 230 32% 8%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 205 30% 26%;
+    --input: 205 30% 26%;
+    --ring: 205 65% 68%;
+    --chart-1: 205 65% 68%;
+    --chart-2: 217 70% 60%;
+    --chart-3: 195 55% 55%;
+    --chart-4: 205 40% 78%;
+    --chart-5: 220 25% 45%;
+    --radius: 0.75rem;
+    --sidebar-background: 230 32% 8%;
+    --sidebar-foreground: 205 40% 92%;
+    --sidebar-primary: 205 65% 68%;
+    --sidebar-primary-foreground: 230 32% 8%;
+    --sidebar-accent: 225 20% 18%;
+    --sidebar-accent-foreground: 205 40% 92%;
+    --sidebar-border: 205 30% 26%;
+    --sidebar-ring: 205 65% 68%;
+  }
+
+  .light {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 15%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 217 91% 60%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 217 81% 55%;
+    --chart-3: 0 0% 45%;
+    --chart-4: 217 71% 65%;
+    --chart-5: 0 0% 30%;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 8%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 92%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background-color: hsl(205 65% 68% / 0.3);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* The maze needs a keyboard: phones and tablets get the project list instead. */
+.touch-only {
+  display: none !important;
+}
+
+@media (pointer: coarse), (max-width: 767px) {
+  .game-only {
+    display: none !important;
+  }
+
+  .touch-only {
+    display: block !important;
+  }
+}
+
+/* Case-study pages: re-tokens the shared components to the game palette. */
+.game-theme {
+  --background: 230 32% 8%;
+  --foreground: 205 40% 92%;
+  --card: 230 28% 14%;
+  --card-foreground: 205 40% 92%;
+  --popover: 230 28% 14%;
+  --popover-foreground: 205 40% 92%;
+  --primary: 205 65% 68%;
+  --primary-foreground: 230 32% 8%;
+  --secondary: 225 20% 18%;
+  --secondary-foreground: 205 30% 80%;
+  --muted: 225 20% 18%;
+  --muted-foreground: 205 20% 60%;
+  --accent: 205 65% 68%;
+  --accent-foreground: 230 32% 8%;
+  --border: 205 30% 26%;
+  --input: 205 30% 26%;
+  --ring: 205 65% 68%;
+  --chart-1: 205 65% 68%;
+  --chart-2: 217 70% 60%;
+  --chart-3: 195 55% 55%;
+  --chart-4: 205 40% 78%;
+  --chart-5: 220 25% 45%;
+
+  /* 176px keeps the prototype clear of the fixed navbar at any window height. */
+  --hero-phone-width: min(240px, calc((100vh - 176px) * 0.55 * 375 / 812));
+  --hero-desktop-width: min(90vw, 650px);
+
+  min-height: 100vh;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+@media (min-width: 1024px) {
+  .game-theme {
+    --hero-phone-width: min(clamp(240px, 35vw, 320px), calc((100vh - 176px) * 375 / 812));
+    --hero-desktop-width: min(36vw, 650px);
+  }
+}
+
+.game-theme h1,
+.game-theme h2 {
+  text-shadow: 0 0 32px hsl(var(--primary) / 0.25);
+}
+
+.game-theme .bg-card {
+  background-image: linear-gradient(135deg, hsl(230 28% 16%), hsl(230 30% 10%));
+  box-shadow: 0 0 24px hsl(var(--primary) / 0.07);
+}

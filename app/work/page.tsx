@@ -1,0 +1,263 @@
+"use client";
+
+import * as React from "react";
+import { useState } from "react";
+import GameNav from "@/components/game-nav";
+import TwinklingStars from "@/components/twinkling-stars";
+import OrnamentalDivider from "@/components/ornamental-divider";
+import { motion } from "framer-motion";
+import { Package, Sparkles } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+type TabId = "all" | "jobtalent" | "prograils" | "mobile" | "website";
+
+const JT_PROJECTS = [
+  {
+    title: "Introducing AI recruiter Clara",
+    link: "/projects/clara",
+    description: "Accelerating and scaling the recruitment process.",
+    image: "/images/AI-2.png",
+    tags: ["UI/UX design", "mobile design", "stakeholders management", "wireframing", "user research", "AI"],
+    platform: "mobile",
+  },
+  {
+    title: "Productivity and fill rate",
+    link: "/projects/productivity",
+    description: "Providing clients with clearer workforce performance insights.",
+    image: "/images/productivity2.png",
+    tags: ["UI/UX design", "user research", "data driven design", "problem solving", "wireframing"],
+    platform: "mobile",
+  },
+  {
+    title: "Guided tour",
+    link: "/projects/guided-tour",
+    description: "Educating new jobbers and introducing the onboarding tour for users.",
+    image: "/images/guided.png",
+    tags: ["UI/UX design", "user research", "IA", "design thinking"],
+    platform: "mobile",
+  },
+  {
+    title: "Shift satisfaction",
+    link: "/projects/shift-satisfaction",
+    description: "Giving Workers a Voice: Turning Shifts Into a Better Experience.",
+    image: "/images/satisfaction.png",
+    tags: ["UI/UX design", "user research", "B2C", "iterative design"],
+    platform: "mobile",
+  },
+  {
+    title: "Gamification",
+    link: "/projects/gamification",
+    description: "Behavioral intervention using points systems and contextual notifications to improve worker consistency.",
+    image: "/images/gamification.png",
+    tags: ["behavioral design", "UX research", "gamification", "user engagement", "mobile design"],
+    platform: "mobile",
+  },
+  {
+    title: "Requesting time off",
+    link: "/projects/time-off",
+    description: "Providing transparency for workers and supervisors in shift schedules.",
+    image: "/images/timeoff.png",
+    tags: ["UI/UX design", "design thinking", "B2C", "mobile design"],
+    platform: "mobile",
+  },
+  {
+    title: "Web redesign",
+    link: "/projects/web-redesign",
+    description: "Enabling users to seamlessly transition from web to mobile while uplisting.",
+    image: "/images/webred.png",
+    tags: ["web design", "responsive design", "cross-platform", "user flows"],
+    platform: "website",
+  },
+];
+
+const PROGRAILS_PROJECTS = [
+  {
+    title: "Revamping internal management system",
+    link: "/projects/humadroid",
+    description: "Prioritizing user needs and uncovering the hidden potential of the internal web app.",
+    image: "/images/humandroid.png",
+    tags: ["UI/UX design", "user research", "IA", "design thinking"],
+    platform: "website",
+  },
+];
+
+const TABS: { id: TabId; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "jobtalent", label: "Job&Talent" },
+  { id: "prograils", label: "Prograils" },
+  { id: "mobile", label: "Mobile" },
+  { id: "website", label: "Website" },
+];
+
+export default function WorkPage() {
+  const [activeTab, setActiveTab] = useState<TabId>("all");
+
+  const getFilteredProjects = () => {
+    const allProjects = [...JT_PROJECTS, ...PROGRAILS_PROJECTS];
+    if (activeTab === "all") return allProjects;
+    if (activeTab === "jobtalent") return JT_PROJECTS;
+    if (activeTab === "prograils") return PROGRAILS_PROJECTS;
+    return allProjects.filter(p => p.platform === activeTab);
+  };
+
+  const filteredProjects = getFilteredProjects();
+
+  return (
+    <>
+      <GameNav />
+      <main className="min-h-screen bg-background paper-grain pt-32 pb-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Hero section */}
+          <motion.div
+            className="relative text-center mb-12 py-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <TwinklingStars />
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/15 border border-primary/30 rounded-full mb-4">
+                <Package className="w-4 h-4 text-primary" />
+                <span className="text-xs uppercase tracking-widest text-foreground/80 font-semibold">
+                  Adventure Archive
+                </span>
+              </div>
+              <OrnamentalDivider className="mb-4" />
+              <h1 className="font-display uppercase tracking-[0.1em] text-4xl md:text-5xl text-foreground mb-4 text-bloom-soft">
+                All Adventures
+              </h1>
+              <OrnamentalDivider className="mb-8" />
+              <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+                A collection of quests where design enhanced user experience and delivered
+                measurable impact.
+              </p>
+
+              {/* Filter tabs */}
+              <div className="flex flex-wrap gap-2 justify-center">
+                {TABS.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                      activeTab === tab.id
+                        ? "bg-primary text-primary-foreground bloom-soft"
+                        : "bg-primary/10 text-muted-foreground border border-primary/30 hover:bg-primary/20"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Projects grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project, index) => {
+              const asymmetricRadius =
+                index % 2 === 0
+                  ? "1.25rem 1.75rem 1.25rem 1.75rem"
+                  : "1.75rem 1.25rem 1.75rem 1.25rem";
+
+              return (
+              <Link key={project.title} href={project.link} className="block h-full">
+              <motion.div
+                className="group relative flex flex-col h-full bg-gradient-to-br from-card to-background border-2 border-primary/20 overflow-hidden cursor-pointer hover:border-primary/50 transition-all"
+                style={{ borderRadius: asymmetricRadius }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+              >
+                {/* Magical particles */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                  {[...Array(5)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute rounded-full"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        width: 4,
+                        height: 4,
+                        background: "#f6c177",
+                        boxShadow: "0 0 10px 5px rgba(246,193,119,0.45)",
+                      }}
+                      animate={{
+                        y: [-10, -30, -10],
+                        opacity: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.2,
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Image */}
+                <div className="relative aspect-video bg-gradient-to-br from-primary/10 to-primary/5">
+                  {project.image && (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+
+                  {/* Sparkle indicator */}
+                  <motion.div
+                    className="absolute top-3 right-3 opacity-0 group-hover:opacity-100"
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileHover={{ scale: 1, rotate: 0 }}
+                  >
+                    <Sparkles className="w-5 h-5 text-primary" />
+                  </motion.div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-lg text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="px-2 py-1 bg-primary/10 border border-primary/30 rounded text-xs text-primary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Decorative corners */}
+                <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-primary/30 rounded-tl-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute bottom-0 right-0 w-12 h-12 border-r-2 border-b-2 border-primary/30 rounded-br-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              </motion.div>
+              </Link>
+              );
+            })}
+          </div>
+
+          {/* Empty state */}
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-20">
+              <Package className="w-16 h-16 text-primary/30 mx-auto mb-4" />
+              <p className="text-muted-foreground">No adventures found in this category</p>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
+  );
+}
