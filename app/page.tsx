@@ -182,13 +182,25 @@ export default function HomePage() {
               <OrnamentalDivider className="mb-8" />
 
               <motion.p
-                className="font-display italic text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed"
+                className="font-display italic text-lg md:text-xl text-muted-foreground mb-4 leading-relaxed"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                A silver fox wanders through magical woods, seeking glowing memories of design adventures.
-                Each project holds a tale of enhancing experiences for users.
+                In Japanese folklore, the kitsune grows wiser with every journey. My fox wanders
+                magical woods collecting glowing memories, and each one is a design story: a
+                problem worth solving, a hypothesis tested, and a product that got better for its
+                users.
+              </motion.p>
+
+              <motion.p
+                className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+              >
+                I’m Martyna, a product designer who brings psycholinguistics, behavioral science
+                and a high bar for craft to mobile and B2B products.
               </motion.p>
 
               <motion.button
