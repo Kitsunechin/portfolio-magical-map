@@ -65,7 +65,7 @@ function TouchProjectList() {
 
       <div className="max-w-xl mx-auto">
         <p className="text-sm text-muted-foreground/70 mb-8 text-center">
-          Open this page on a computer to guide the fox through the labyrinth.
+          Open this page on a computer to guide the fox through the projects.
         </p>
 
         <ul className="space-y-6">
